@@ -1,9 +1,10 @@
 import React, {useState}from "react";
 import Axios from 'axios'
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Login = (e) => {
-
+    const history = useHistory();
     const initialInput = {
         username:'',
         password:''
@@ -18,9 +19,23 @@ const Login = (e) => {
         })
     }
     const handleSubmit = (e) =>{
-        e.preventDefault()
-        Axios.post('http://localhost:5000/api/login',input)
-        .then(res=>console.log(res))
+        e.preventDefault();
+        setIsLoading(true);
+        setTimeout(() => {
+            Axios.post('http://localhost:5000/api/login',input)
+            .then(res=>{
+                console.log(res);
+                setIsLoading(false);
+                localStorage.setItem('token', res.data.payload);
+                history.push('/friendslist')
+            })
+            .catch(er=>{
+                setIsLoading(false);
+                console.log(er)
+                //output incorrect info?
+            })
+        }, 2000);
+
     }
 
     return(
@@ -48,6 +63,7 @@ const Login = (e) => {
                     </label>
                 </div>  
                 <button>submit</button> 
+                {isLoading ? <h3>_loading...</h3>:<></>}
             </form>
         </div>
     )

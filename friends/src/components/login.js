@@ -1,6 +1,9 @@
 import React, {useState}from "react";
+import Axios from 'axios'
+import axios from "axios";
 
-const Login = () => {
+const Login = (e) => {
+
     const initialInput = {
         username:'',
         password:''
@@ -14,12 +17,17 @@ const Login = () => {
             [e.target.name]: e.target.value
         })
     }
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        Axios.post('http://localhost:5000/api/login',input)
+        .then(res=>console.log(res))
+    }
 
     return(
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
-                    <label>UserName
+                    <label>_username_
                         <input 
                         type='text' 
                         name='username' 
@@ -30,7 +38,7 @@ const Login = () => {
                     </label>
                 </div>   
                 <div>
-                    <label>Password
+                    <label>_password_
                         <input 
                         type='password' 
                         name='password' 

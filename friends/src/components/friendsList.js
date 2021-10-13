@@ -1,11 +1,21 @@
-import React, {useState, useEffect}from "react";
+import React from "react";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 class FriendsList extends React.Component{
     state = {
         friends:[]
     }
     componentDidMount(){
-        console.log('cake')
+        axiosWithAuth()
+            .get('https://localhost:5000/api/friends')
+            .then(res=>{
+                console.log('fetch succesful')
+                console.log(res)
+            })
+            .catch(er=>{
+                console.log('error with friends fetch')
+                console.log(er)
+            })
     }
     render(){
         return(

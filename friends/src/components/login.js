@@ -23,13 +23,13 @@ const Login = (e) => {
         setTimeout(() => {
             Axios.post('http://localhost:5000/api/login',input)
             .then(res=>{
-                console.log(res);
                 setIsLoading(false);
                 localStorage.setItem('token', res.data.payload);
                 history.push('/friendslist')
             })
             .catch(er=>{
                 setIsLoading(false);
+                console.log('error with login submit')
                 console.log(er)
                 //output incorrect info?
             })

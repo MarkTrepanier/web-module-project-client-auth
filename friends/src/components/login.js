@@ -1,6 +1,5 @@
 import React, {useState}from "react";
-import Axios from 'axios'
-import axios from "axios";
+import Axios from 'axios';
 import { useHistory } from "react-router-dom";
 
 const Login = (e) => {

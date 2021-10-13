@@ -1,18 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
 class FriendsList extends React.Component{
     state = {
         friends:[]
     }
+
+    setForm=(data)=>{
+        this.setState({friends:data})
+    }
     componentDidMount(){
         axiosWithAuth()
             .get('http://localhost:5000/api/friends')
                 .then(res=>{
                     console.log('fetch succesful')
-                    this.setState({
-                        friends: res.data
-                    })
+                    this.setForm(res.data)
                 })
                 .catch(er=>{
                     console.log('error with friends fetch')
@@ -29,6 +32,7 @@ class FriendsList extends React.Component{
                         return <h2 key={friend.id}>{friend.name}</h2>
                     }):<></>}
                 </div>
+                <Link to='/friendform'>AddFriend?</Link>
             </div>
         )
     }
